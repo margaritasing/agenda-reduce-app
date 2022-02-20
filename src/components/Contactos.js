@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useReducer } from 'react'
+import Formulario from './Formulario'
 import TablaContactos from './TablaContactos'
+import { ContactosReducer } from '../reducers/ContactosReducer'
 
-const Contactos = () => {
 const contactos = [
     {
         id:"hsdfs",
@@ -12,11 +13,20 @@ const contactos = [
         id:"hsjhfs",
         nombre:"Angelina",
         numero:"04142334984"
-    }
+    },
+    {
+      id:"hsgdteh",
+      nombre:"Ana",
+      numero:"04142334984"
+  }
 ]
+const Contactos = () => {
+  const [state, dispatch] = useReducer(ContactosReducer, contactos)
+  
   return (
     <div className='container mt-3'>
-       <TablaContactos contactos={contactos}/>    
+        <Formulario dispatch= {dispatch}/>
+        <TablaContactos contactos={state}/>    
     </div>
   )
 }
