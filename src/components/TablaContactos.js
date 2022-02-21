@@ -1,7 +1,14 @@
 import React from 'react'
 
-const TablaContactos = ({contactos =[]}) => {
-  return (
+const TablaContactos = ({contactos =[],  dispatch}) => {
+    const handleDelete = (id) => {
+        const deleteAction={
+            type:"delete",
+            payload:id
+        }
+        dispatch(deleteAction);       
+    }
+    return (
     <table className='table'>
         <thead>
             <tr>
@@ -14,12 +21,13 @@ const TablaContactos = ({contactos =[]}) => {
         <tbody>
         {
             contactos.map( (contacto) => {
+                const finalId=contacto.id.split("-") //esto es para cortar el id que crea uuid, la libreria
                 return <tr key={contacto.id}>
-                    <th>{contacto.id}</th> 
+                    <th>{finalId[0]}</th>   
                     <td>{contacto.nombre}</td> 
                     <td>{contacto.numero}</td>  
                     <td>
-                    <button className='btn btn-danger'>Eliminar</button>
+                    <button onClick={()=> handleDelete(contacto.id)} className='btn btn-danger'>Eliminar</button>
                     </td>             
                 </tr>
             })  
